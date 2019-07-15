@@ -1,6 +1,6 @@
 OCR
 ===
-Get ID of each processor
+Get processors' ID
 ------------------------
 First, we should let each processor get its own ID number so that it can read its corresponding child checkpoint file and start to work on the jobs assigned to it. ::
 
@@ -64,6 +64,30 @@ Next step is the most important part as OCR will start to read the images accord
             del names[0]
 
             dict1.update({names[i][0]: "T" for i in range(len(names))})
+
+
+Below are 3 groups of original pages and their OCR outputs: 
+
+Page 1:
+
+.. image:: 1_bw.jpg
+
+Result 1:
+
+.. image:: 1.png
+
+Page 2 and 3:
+
+.. image:: 2_bw.jpg
+
+Result 2:
+
+.. image:: 2.png
+
+Result 3: 
+
+.. image:: 3.png
+
 
 Time
 ----

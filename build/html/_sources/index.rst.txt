@@ -27,7 +27,7 @@ Step 2-4 require slurm files to run on HTC.
    slurm_2
    ocr
    postprocess
-
+   time
 
 Indices and tables
 ==================

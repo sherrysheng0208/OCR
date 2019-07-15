@@ -87,13 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="preprocess.html">Preprocess</a></li>
 <li class="toctree-l1"><a class="reference internal" href="slurm_2.html">Run OCR on HTC</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OCR</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#get-id-of-each-processor">Get ID of each processor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-processors-id">Get processors’ ID</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#child-checkpoint-file">Child checkpoint file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#read-images-with-ocr">Read images with OCR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#time">Time</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="postprocess.html">Post-process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time.html">Time</a></li>
 </ul>
 
             
@@ -160,8 +161,8 @@
             
   <div class="section" id="ocr">
 <h1>OCR<a class="headerlink" href="#ocr" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="get-id-of-each-processor">
-<h2>Get ID of each processor<a class="headerlink" href="#get-id-of-each-processor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-processors-id">
+<h2>Get processors’ ID<a class="headerlink" href="#get-processors-id" title="Permalink to this headline">¶</a></h2>
 <p>First, we should let each processor get its own ID number so that it can read its corresponding child checkpoint file and start to work on the jobs assigned to it.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
 <span class="kn">import</span> <span class="nn">pytesseract</span>
@@ -227,6 +228,17 @@
            <span class="n">dict1</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span> <span class="s2">&quot;T&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">))})</span>
 </pre></div>
 </div>
+<p>Below are 3 groups of original pages and their OCR outputs:</p>
+<p>Page 1:</p>
+<img alt="_images/1_bw.jpg" src="_images/1_bw.jpg" />
+<p>Result 1:</p>
+<img alt="_images/1.png" src="_images/1.png" />
+<p>Page 2 and 3:</p>
+<img alt="_images/2_bw.jpg" src="_images/2_bw.jpg" />
+<p>Result 2:</p>
+<img alt="_images/2.png" src="_images/2.png" />
+<p>Result 3:</p>
+<img alt="_images/3.png" src="_images/3.png" />
 </div>
 <div class="section" id="time">
 <h2>Time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h2>

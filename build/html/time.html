@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Run pre-process on HTC &mdash; OCR 0.0.1 documentation</title>
+  <title>Time &mdash; OCR 0.0.1 documentation</title>
   
 
   
@@ -35,8 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Image Cleaning" href="imageCleaning.html" />
-    <link rel="prev" title="Split PDF file into images" href="split.html" /> 
+    <link rel="prev" title="Post-process" href="postprocess.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -82,13 +81,13 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="split.html">Split PDF file into images</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Run pre-process on HTC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_1.html">Run pre-process on HTC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="imageCleaning.html">Image Cleaning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocess.html">Preprocess</a></li>
 <li class="toctree-l1"><a class="reference internal" href="slurm_2.html">Run OCR on HTC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ocr.html">OCR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocess.html">Post-process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="time.html">Time</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Time</a></li>
 </ul>
 
             
@@ -134,13 +133,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Run pre-process on HTC</li>
+      <li>Time</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/slurm_1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/time.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -153,26 +152,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="run-pre-process-on-htc">
-<h1>Run pre-process on HTC<a class="headerlink" href="#run-pre-process-on-htc" title="Permalink to this headline">¶</a></h1>
-<p>To run on high-performance computers, we need to run slurm file. Assume we want it to run on 30 processors.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="c1">#SBATCH --job-name=pre_process</span>
-<span class="c1">#SBATCH --partition=commons</span>
-<span class="c1">#SBATCH --ntasks=1</span>
-<span class="c1">#SBATCH --time=00:30:00</span>
-<span class="c1">#SBATCH --export=ALL</span>
-<span class="c1">#SBATCH --mail-user=  ##Enter your email</span>
-<span class="c1">#SBATCH --mail-type=ALL</span>
-
-<span class="n">module</span> <span class="n">load</span> <span class="n">GCC</span><span class="o">/</span><span class="mf">7.3</span><span class="o">.</span><span class="mi">0</span> <span class="n">OpenMPI</span><span class="o">/</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">2</span>
-<span class="n">module</span> <span class="n">load</span> <span class="n">Python</span><span class="o">/</span><span class="mf">3.6</span><span class="o">.</span><span class="mi">6</span>
-<span class="n">pip3</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">pandas</span>
-
-<span class="n">python</span> <span class="n">imageCleaning</span><span class="o">.</span><span class="n">py</span>
-<span class="n">python</span> <span class="n">pre_process</span><span class="o">.</span><span class="n">py</span> <span class="mi">30</span> <span class="c1">##The last number is the number of the processors</span>
-</pre></div>
-</div>
+  <div class="section" id="time">
+<h1>Time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h1>
+<p>Usually, image cleaning process takes about 10 - 13 seconds. It is quite long comparing to the whole process. But if we can run it on HTC, the efficiency will greatly enhance.</p>
+<p>The time of OCR process depends on how much content on each page. Some pages are full of words, which may take 30 seconds or more per page. Some pages with less words to read may only take 2 - 4 seconds. The resolution of one page may also affect OCR’s speed.</p>
+<p>Converting PDF to images usually takes less than 0.002 seconds, so it is too quick to take into account.</p>
 </div>
 
 
@@ -183,10 +167,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="imageCleaning.html" class="btn btn-neutral float-right" title="Image Cleaning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="split.html" class="btn btn-neutral float-left" title="Split PDF file into images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="postprocess.html" class="btn btn-neutral float-left" title="Post-process" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="slurm_2.html">Run OCR on HTC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ocr.html">OCR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocess.html">Post-process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time.html">Time</a></li>
 </ul>
 
             
@@ -158,6 +159,8 @@
             
   <div class="section" id="image-cleaning">
 <h1>Image Cleaning<a class="headerlink" href="#image-cleaning" title="Permalink to this headline">¶</a></h1>
+<p>Take the below image as an example.</p>
+<img alt="_images/2_original.jpg" src="_images/2_original.jpg" />
 <div class="section" id="contrast">
 <h2>Contrast<a class="headerlink" href="#contrast" title="Permalink to this headline">¶</a></h2>
 <p>After getting individual images, we want the images to be clearer and easier for OCR to read. So we need to do some image cleaning, such as enhancing contrast of images and changing the color of images to black and white. Assume the name of the image is 1.jpg. All the parameters in the following code can be changed based on different situations and requirements. First we increase the contrast of images.</p>
@@ -167,10 +170,12 @@
 <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;1.jpg&#39;</span><span class="p">)</span>
 
 <span class="n">enh_con</span> <span class="o">=</span> <span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Contrast</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-<span class="n">contrast</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">contrast</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">enh_con</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">contrast</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The result output is:</p>
+<img alt="_images/2.jpg" src="_images/2.jpg" />
 </div>
 <div class="section" id="black-white">
 <h2>Black&amp;White<a class="headerlink" href="#black-white" title="Permalink to this headline">¶</a></h2>
@@ -189,11 +194,13 @@
                <span class="n">pixdata</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">255</span>
    <span class="k">return</span> <span class="n">img</span>
 
-<span class="n">image</span> <span class="o">=</span> <span class="n">binarizing</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">195</span><span class="p">)</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">binarizing</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">160</span><span class="p">)</span>
 
 <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;1.jpg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The result output after black and white is:</p>
+<img alt="_images/22.jpg" src="_images/22.jpg" />
 </div>
 </div>
 
