@@ -65,6 +65,30 @@ Next step is the most important part as OCR will start to read the images accord
 
             dict1.update({names[i][0]: "T" for i in range(len(names))})
 
+
+Below are 3 groups of original pages and their OCR outputs: 
+
+Page 1:
+
+.. image:: 1_bw.jpg
+
+Result 1:
+
+.. image:: 1.png
+
+Page 2 and 3:
+
+.. image:: 2_bw.jpg
+
+Result 2:
+
+.. image:: 2.png
+
+Result 3: 
+
+.. image:: 3.png
+
+
 Time
 ----
 We write the average time of each image processing into a file named timing.csv. In the end, this file will show us how many images each processor has read and how long it takes. ::

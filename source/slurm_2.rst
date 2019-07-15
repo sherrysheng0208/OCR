@@ -23,3 +23,15 @@ The number of job array correspond to the number of processors that we set in th
  brew install tesseract
 
  python ocr.py -p $SLURM_ARRAY_TASK_ID
+
+In Figure 1, vertical axis represents the average time that one page takes to do the OCR process and horizontal axis represents how many pages are processed in total. We can see that when there are fewer pages being processed, the speed of OCR is a little bit faster. When the number of pages is large, the speed of OCR will gradually maintain steady.
+
+.. image:: chart1.jpg
+
+In Figure 2, vertical axis represents the number of pages that can be processed in one second and horizontal axis represents how many processors are used. It is clear to see that as the number of processors increases, more pages can be processed by OCR in one second. This graph shows the largest advantage of HTC: more than one processor means multiple jobs can be done at the same time. 
+
+.. image:: chart2.jpg
+
+In Figure 3, vertical axis represents the average time that one page takes to do the OCR process and horizontal axis represents the number of processors used. The shape of flat curve shows that the number of processors does not affect the speed of OCR.
+
+.. image:: chart3.jpg
