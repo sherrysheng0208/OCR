@@ -3,31 +3,32 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to OCR's documentation!
+Getting started with OCR
 ===============================
-The main goal is to read a PDF file with the help of OCR and output the text in the PDF file. In order to increase efficiency, we run some steps of the process on high-performance computers.
+Optical character recognition or optical character reader (OCR) is a technology that can help you convert different types of images, such as scanned documents, PDF files or photos of documents into machine-encoded text. When we want to use OCR to read extremely large files, it may take us much time to complete the entire process. In order to increase the efficiency, we may need the help of High Throughput Computing (HTC) cluster, which can support large work loads including single node, parallel and large memory multithreaded jobs. 
 
-There are several steps in the entire process:
+The program we use to run OCR on HTC mainly consists of four parts, including pre_process.py, ocr.py, post_process.py and a slurm script. 
 
-1. Split the input PDF file into separated images
-#. Enhance the contrast of each image and make it black and white. (Image Cleaning)
-#. Create a checkpoint file to make a list of jobs to do. (Preprocess)
-#. Read each image with the help of OCR and output text files.
+In the pre-process, we split input PDF files into images and create master and child checkpoint files. In the OCR process, we do image-cleaning and convert the images into text. In the post-process, we take the record of the finished and unfinished jobs and update master checkpoint files.
 
-Step 2-4 require slurm files to run on HTC.
+What users need to do to run the program is:
+
+1. Input the PDF files that they want to convert
+#. Make directories to store output images, output texts and checkpoint files
+#. Run the program in one command line and specify how many processors they want it to run on
+#. Check the output texts and master checkpoint files
 
 
 .. toctree::
    :maxdepth: 2
 
-   split
-   slurm_1
-   imageCleaning
-   preprocess
-   slurm_2
-   ocr
-   postprocess
-   time
+   instructions
+   pre_process
+   cleaning_ocr
+   post_process
+   timing
+   language
+   problems
 
 Indices and tables
 ==================
