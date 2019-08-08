@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Instructions to run the program" href="instructions.html" /> 
+    <link rel="next" title="Instructions on running the program" href="instructions.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,7 +80,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions to run the program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions on running the program</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre_process.html">Pre-process</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cleaning_ocr.html">OCR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="post_process.html">Post-process</a></li>
@@ -155,39 +155,43 @@
 <h1>Getting started with OCR<a class="headerlink" href="#getting-started-with-ocr" title="Permalink to this headline">¶</a></h1>
 <p>Optical character recognition or optical character reader (OCR) is a technology that can help you convert different types of images, such as scanned documents, PDF files or photos of documents into machine-encoded text. When we want to use OCR to read extremely large files, it may take us much time to complete the entire process. In order to increase the efficiency, we may need the help of High Throughput Computing (HTC) cluster, which can support large work loads including single node, parallel and large memory multithreaded jobs.</p>
 <p>The program we use to run OCR on HTC mainly consists of four parts, including pre_process.py, ocr.py, post_process.py and a slurm script.</p>
-<p>In the pre-process, we split input PDF files into images and create master and child checkpoint files. In the OCR process, we do image-cleaning and convert the images into text. In the post-process, we take the record of the finished and unfinished jobs and update master checkpoint files.</p>
+<p>In the pre-process, we split PDF files into separate images and create master and child checkpoint files. In the OCR process, we do image-cleaning and convert the images into text. In the post-process, we take record of finished and unfinished jobs and update master checkpoint files.</p>
 <p>What users need to do to run the program is:</p>
 <ol class="arabic simple">
-<li><p>Input the PDF files that they want to convert</p></li>
-<li><p>Make directories to store output images, output texts and checkpoint files</p></li>
-<li><p>Run the program in one command line and specify how many processors they want it to run on</p></li>
+<li><p>Upload PDF files to one directory on the clusters</p></li>
+<li><p>Run the program in one command line which specifies the directory and how many processors they want it to run on</p></li>
 <li><p>Check the output texts and master checkpoint files</p></li>
 </ol>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions to run the program</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions on running the program</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="instructions.html#input-files">Input files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="instructions.html#make-directory">Make directory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instructions.html#run-in-one-command-line">Run in one command line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instructions.html#myjob-slurm">myjob.slurm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="instructions.html#output">Output</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pre_process.html">Pre-process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pre_process.html#get-processor-id">Get Processor ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_process.html#make-directories">Make directories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pre_process.html#split-files">Split files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pre_process.html#master-checkpoint-file">Master checkpoint file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pre_process.html#child-checkpoint-todo-file">Child checkpoint_TODO file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_process.html#master-child-checkpoint-files">Master &amp; Child checkpoint files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_process.html#pre-process-py">pre_process.py</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cleaning_ocr.html">OCR</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#processor-id">Processor ID</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#child-checkpoint-done-file">Child checkpoint_DONE file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#get-processor-id">Get Processor ID</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#image-cleaning">Image cleaning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#read-images-with-ocr">Read images with OCR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#time">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cleaning_ocr.html#ocr-py">ocr.py</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="post_process.html">Post-process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="post_process.html">Post-process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="post_process.html#get-processor-id">Get Processor ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="post_process.html#update-checkpoint-file">Update checkpoint file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="post_process.html#post-process-py">post_process.py</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="timing.html">Time</a></li>
 <li class="toctree-l1"><a class="reference internal" href="language.html">Languages</a></li>
 <li class="toctree-l1"><a class="reference internal" href="problems.html">Problems encountered</a><ul>
@@ -216,7 +220,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="instructions.html" class="btn btn-neutral float-right" title="Instructions to run the program" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="instructions.html" class="btn btn-neutral float-right" title="Instructions on running the program" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

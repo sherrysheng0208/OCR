@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Instructions to run the program &mdash; OCR 0.0.1 documentation</title>
+  <title>Instructions on running the program &mdash; OCR 0.0.1 documentation</title>
   
 
   
@@ -81,9 +81,8 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Instructions to run the program</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Instructions on running the program</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#input-files">Input files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#make-directory">Make directory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-in-one-command-line">Run in one command line</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#myjob-slurm">myjob.slurm</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
@@ -140,7 +139,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Instructions to run the program</li>
+      <li>Instructions on running the program</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,29 +158,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="instructions-to-run-the-program">
-<h1>Instructions to run the program<a class="headerlink" href="#instructions-to-run-the-program" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="instructions-on-running-the-program">
+<h1>Instructions on running the program<a class="headerlink" href="#instructions-on-running-the-program" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="input-files">
 <h2>Input files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h2>
-<p>First, you need to use scp to transfer input files to HTC from your local machine.</p>
-</div>
-<div class="section" id="make-directory">
-<h2>Make directory<a class="headerlink" href="#make-directory" title="Permalink to this headline">¶</a></h2>
-<p>Then, you will find out that there are two folders called dataset and output in the current HTC directory. Create one folder in each of these two directories and also in your current directory. Make sure the names of the three folders are the same. They should be the name of your PDF file so that it will be easier for you to find them. We will use <em>fileName</em> to represent the name of your PDF file in the following instructions.</p>
-<p>The folder in the dataset directory is to store the split images from pre-process, the folder in the output directory is to store the output texts from OCR and the one in the current directory is to store master and child checkpoint files and also benchmark.</p>
+<p>First, you need to use scp to transfer input files from your local machine to clusters.</p>
 </div>
 <div class="section" id="run-in-one-command-line">
 <h2>Run in one command line<a class="headerlink" href="#run-in-one-command-line" title="Permalink to this headline">¶</a></h2>
-<p>After making directories, you only need to run one command line to specify the name of your PDF file and how many processors you want to use.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sbatch —array=array_index myjob.slurm #processors fileName
+<p>Then, you only need to run one command line to specify the name of your directory and how many processors you want to use. It is possible to use Job Arrays with an exotic numbering scheme, but in this program, you must start your Job Arrays with index=0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sbatch --array=0-array_index myjob.slurm number_of_processors “your_directory”
 </pre></div>
 </div>
-<p>For example, assume your PDF file is document.pdf. You want it to run on 10 processors and the index of these 10 processors is 0-9. You should use sbatch as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sbatch —array=0-9 myjob.slurm 10 document
+<p>For example, assume your directory is “My PDF Files”. You want it to run on 10 processors and the index of these 10 processors is 0-9. You should use sbatch as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sbatch --array=0-9 myjob.slurm 10 “My PDF Files”
 </pre></div>
 </div>
 <p>If you submit the job successfully, it will show:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="n">job_ID</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Submitted</span> <span class="n">batch</span> <span class="n">job</span> <span class="n">job_ID</span>
 </pre></div>
 </div>
 </div>
@@ -194,9 +188,8 @@
 #SBATCH --ntasks=1
 #SBATCH --time=00:30:00
 #SBATCH --export=ALL
-#SBATCH --mail-user=sz58@rice.edu
+#SBATCH --mail-user=your_email
 #SBATCH --mail-type=ALL
-#SBATCH --array=1-${1}
 
 module load GCC/7.3.0 OpenMPI/3.1.2
 module load Python/3.6.6
@@ -210,15 +203,15 @@ echo &quot;export PATH=/home/yourID/.linuxbrew/bin/:$PATH&quot; &gt;&gt; ~/.bash
 
 brew install tesseract
 
-python pre_process.py ${1} ${2}
-python ocr.py ${2} -p $SLURM_ARRAY_TASK_ID
-python post_process.py ${1} ${2}
+python pre_process.py ${1} &quot;${2}&quot; -p $SLURM_ARRAY_TASK_ID
+python ocr.py &quot;${2}&quot; -p $SLURM_ARRAY_TASK_ID
+python post_process.py ${1} &quot;${2}&quot; -p $SLURM_ARRAY_TASK_ID
 </pre></div>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<p>The time for completing the jobs depends on the size of your PDF files and the number of processors you use. Please check the master checkpoint file in the <em>fileName</em> folder to see whether there is any unfinished tasks after it completes. You can use scp to transfer the output texts in the folder output/<em>fileName</em> back to your local machine.</p>
+<p>The time for completing the jobs depends on the size of your PDF files and the number of processors you use. Please check master checkpoint files in the folders named after each PDF file in the input directory, which is <em>your_directory_input/file_name_Folder</em>, to see whether there is any unfinished tasks after it completes. You can use scp to transfer the output texts in the <em>your_directory_output</em> directory back to your local machine.</p>
 </div>
 </div>
 

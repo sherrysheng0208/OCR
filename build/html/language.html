@@ -81,7 +81,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions to run the program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instructions.html">Instructions on running the program</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre_process.html">Pre-process</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cleaning_ocr.html">OCR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="post_process.html">Post-process</a></li>
@@ -154,7 +154,11 @@
             
   <div class="section" id="languages">
 <h1>Languages<a class="headerlink" href="#languages" title="Permalink to this headline">¶</a></h1>
-<p>OCR supports various languages, such as English, French and Portuguese. But users need to know what language they want OCR to read before getting started. They need to download the trained data from tesseract-ocr website and upload it to this directory on the HTC: /home/<em>yourID</em>/.linuxbrew/Cellar/tesseract/4.0.0_1/share/tessdata/.</p>
+<p>OCR supports various languages, such as English, French. But users need to know what language they want OCR to read before getting started. They need to download the trained data from tesseract-ocr website and upload it to this directory on the HTC: /home/<em>your_ID</em>/.linuxbrew/Cellar/tesseract/4.0.0_1/share/tessdata/.</p>
+<p>Also, remember to change the parameter “lang” in the following line in the ocr.py.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_string</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">img_path</span><span class="p">),</span><span class="n">lang</span><span class="o">=</span><span class="s1">&#39;eng&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;--tessdata-dir &quot;/home/your_ID/.linuxbrew/Cellar/tesseract/4.0.0_1/share/tessdata/&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 
 

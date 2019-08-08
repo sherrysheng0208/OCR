@@ -9,13 +9,12 @@ Optical character recognition or optical character reader (OCR) is a technology 
 
 The program we use to run OCR on HTC mainly consists of four parts, including pre_process.py, ocr.py, post_process.py and a slurm script. 
 
-In the pre-process, we split input PDF files into images and create master and child checkpoint files. In the OCR process, we do image-cleaning and convert the images into text. In the post-process, we take the record of the finished and unfinished jobs and update master checkpoint files.
+In the pre-process, we split PDF files into separate images and create master and child checkpoint files. In the OCR process, we do image-cleaning and convert the images into text. In the post-process, we take record of finished and unfinished jobs and update master checkpoint files.
 
 What users need to do to run the program is:
 
-1. Input the PDF files that they want to convert
-#. Make directories to store output images, output texts and checkpoint files
-#. Run the program in one command line and specify how many processors they want it to run on
+1. Upload PDF files to one directory on the clusters
+#. Run the program in one command line which specifies the directory and how many processors they want it to run on
 #. Check the output texts and master checkpoint files
 
 

@@ -1,28 +1,22 @@
-Instructions to run the program
-===============================
+Instructions on running the program
+===================================
 Input files
 -----------
-First, you need to use scp to transfer input files to HTC from your local machine. 
-
-Make directory
---------------
-Then, you will find out that there are two folders called dataset and output in the current HTC directory. Create one folder in each of these two directories and also in your current directory. Make sure the names of the three folders are the same. They should be the name of your PDF file so that it will be easier for you to find them. We will use *fileName* to represent the name of your PDF file in the following instructions.
-
-The folder in the dataset directory is to store the split images from pre-process, the folder in the output directory is to store the output texts from OCR and the one in the current directory is to store master and child checkpoint files and also benchmark.
+First, you need to use scp to transfer input files from your local machine to clusters. 
 
 Run in one command line
 -----------------------
-After making directories, you only need to run one command line to specify the name of your PDF file and how many processors you want to use. ::
+Then, you only need to run one command line to specify the name of your directory and how many processors you want to use. It is possible to use Job Arrays with an exotic numbering scheme, but in this program, you must start your Job Arrays with index=0. ::
 
- sbatch —array=array_index myjob.slurm #processors fileName
+ sbatch --array=0-array_index myjob.slurm number_of_processors “your_directory”
 
-For example, assume your PDF file is document.pdf. You want it to run on 10 processors and the index of these 10 processors is 0-9. You should use sbatch as follows: ::
+For example, assume your directory is “My PDF Files”. You want it to run on 10 processors and the index of these 10 processors is 0-9. You should use sbatch as follows: ::
 
- sbatch —array=0-9 myjob.slurm 10 document
+ sbatch --array=0-9 myjob.slurm 10 “My PDF Files”
 
 If you submit the job successfully, it will show: ::
 
- Submitted batch job job_ID.
+ Submitted batch job job_ID
 
 myjob.slurm
 -----------
@@ -34,9 +28,8 @@ myjob.slurm mentioned in the above command line is a slurm script used to run on
  #SBATCH --ntasks=1
  #SBATCH --time=00:30:00
  #SBATCH --export=ALL
- #SBATCH --mail-user=sz58@rice.edu
+ #SBATCH --mail-user=your_email
  #SBATCH --mail-type=ALL
- #SBATCH --array=1-${1}
 
  module load GCC/7.3.0 OpenMPI/3.1.2
  module load Python/3.6.6
@@ -50,10 +43,11 @@ myjob.slurm mentioned in the above command line is a slurm script used to run on
 
  brew install tesseract
 
- python pre_process.py ${1} ${2}
- python ocr.py ${2} -p $SLURM_ARRAY_TASK_ID
- python post_process.py ${1} ${2}
+ python pre_process.py ${1} "${2}" -p $SLURM_ARRAY_TASK_ID
+ python ocr.py "${2}" -p $SLURM_ARRAY_TASK_ID
+ python post_process.py ${1} "${2}" -p $SLURM_ARRAY_TASK_ID
 
 Output
 ------
-The time for completing the jobs depends on the size of your PDF files and the number of processors you use. Please check the master checkpoint file in the *fileName* folder to see whether there is any unfinished tasks after it completes. You can use scp to transfer the output texts in the folder output/*fileName* back to your local machine.
+The time for completing the jobs depends on the size of your PDF files and the number of processors you use. Please check master checkpoint files in the folders named after each PDF file in the input directory, which is *your_directory_input/file_name_Folder*, to see whether there is any unfinished tasks after it completes. You can use scp to transfer the output texts in the *your_directory_output* directory back to your local machine.
+
